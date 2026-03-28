@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sameer ❤️ Taheniya Wedding</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  background: linear-gradient(135deg,#ffe6f0,#fff0f5);
+  overflow-x: hidden;
+}
+
+/* HEARTS */
+.heart {
+  position: fixed;
+  bottom: 0;
+  font-size: 20px;
+  animation: floatUp 5s linear infinite;
+  opacity: 0.6;
+}
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity:1; }
+  100% { transform: translateY(-100vh); opacity:0; }
+}
+
+/* SECRET */
+#secretScreen {
+  height: 100vh;
+  background:black;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+#secretBtn {
+  padding:15px 30px;
+  border:none;
+  border-radius:30px;
+  background:#ff4e8a;
+  color:white;
+  cursor:pointer;
+}
+
+/* MAIN */
+#mainSite { display:none; }
+
+header {
+  padding:80px 20px;
+  color:white;
+  background:linear-gradient(135deg,#ff4e8a,#ff9a9e);
+}
+
+/* GLASS CARD */
+.card {
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.6);
+  margin:20px auto;
+  padding:20px;
+  max-width:400px;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.1);
+  position:relative;
+}
+
+/* SECTION */
+.section { padding:50px 20px; }
+
+/* BUTTON */
+button {
+  padding:12px 20px;
+  border:none;
+  border-radius:25px;
+  background:#ff4e8a;
+  color:white;
+  cursor:pointer;
+}
+
+/* MUSIC BUTTON */
+#musicBtn {
+  position: fixed;
+  left: 15px;
+  bottom: 15px;
+  padding: 12px;
+  border-radius: 50%;
+  font-size: 18px;
+  background: #ff4e8a;
+  color: white;
+}
+
+/* GALLERY */
+.gallery {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
+}
+.gallery img {
+  width:100%;
+  border-radius:15px;
+  transition:0.3s;
+}
+.gallery img:hover { transform:scale(1.05); }
+
+footer {
+  background:#222;
+  color:white;
+  padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- SECRET -->
+<div id="secretScreen">
+  <h2>🔐 Private Invite</h2>
+  <p>Something big is coming 😏</p>
+  <button id="secretBtn">Enter</button>
+</div>
+
+<!-- MAIN -->
+<div id="mainSite">
+
+<header>
+  <h1>Sameer ❤️ Taheniya</h1>
+  <h2 id="countdown"></h2>
+</header>
+
+<div class="section">
+  <div class="card">
+    <h2>💑 Our Love Story</h2>
+    <p>Two hearts… one journey… forever begins ❤️</p>
+  </div>
+</div>
+
+<div class="section">
+  <h2>📅 Events</h2>
+  <div class="card">Haldi – 04 April</div>
+  <div class="card">Wedding – Himayatnagar</div>
+  <div class="card">Reception – Hyderabad</div>
+</div>
+
+<div class="section">
+  <h2>😂 RSVP</h2>
+  <div class="card">
+    <button id="yesBtn" onclick="celebrate()">Yes 😎</button>
+    <button onclick="alert('Miss you 😔')">No 😜</button>
+  </div>
+</div>
+
+<div class="section gallery">
+  <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622">
+  <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3">
+  <img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329">
+  <img src="https://images.unsplash.com/photo-1520857014576-2c4f4c972b57">
+</div>
+
+<footer>Made with ❤️ by Sameer</footer>
+
+</div>
+
+<!-- MUSIC BUTTON -->
+<button id="musicBtn">🎵</button>
+
+<script>
+// ENTER + MUSIC
+document.getElementById("secretBtn").onclick = () => {
+  document.getElementById("secretScreen").style.display="none";
+  document.getElementById("mainSite").style.display="block";
+
+  let music = document.getElementById("bgMusic");
+  music.play();
+};
+
+// COUNTDOWN
+const d=new Date("April 5, 2026").getTime();
+setInterval(()=>{
+ let n=new Date().getTime();
+ let diff=d-n;
+ let days=Math.floor(diff/(1000*60*60*24));
+ document.getElementById("countdown").innerHTML=days+" days left 💍";
+},1000);
+
+// HEARTS
+setInterval(()=>{
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="💖";
+ h.style.left=Math.random()*100+"%";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),5000);
+},500);
+
+// YES MOVE
+const btn=document.getElementById("yesBtn");
+btn.addEventListener("mouseover",()=>{
+ btn.style.position="absolute";
+ btn.style.left=Math.random()*300+"px";
+ btn.style.top=Math.random()*150+"px";
+});
+
+// CELEBRATE
+function celebrate(){
+ alert("🎉 Welcome to the wedding!");
+}
+
+// MUSIC CONTROL
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+
+musicBtn.onclick = () => {
+  if (music.paused) {
+    music.play();
+    musicBtn.innerHTML = "🔊";
+  } else {
+    music.pause();
+    musicBtn.innerHTML = "🔇";
+  }
+};
+</script>
+
+</body>
+</html>
