@@ -14,58 +14,22 @@ body {
   overflow-x: hidden;
 }
 
-/* HEARTS */
-.heart {
-  position: fixed;
-  bottom: 0;
-  font-size: 20px;
-  animation: floatUp 5s linear infinite;
-  opacity: 0.6;
-}
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity:1; }
-  100% { transform: translateY(-100vh); opacity:0; }
-}
-
-/* SECRET */
-#secretScreen {
-  height: 100vh;
-  background:black;
-  color:white;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-}
-
-#secretBtn {
-  padding:15px 30px;
-  border:none;
-  border-radius:30px;
-  background:#ff4e8a;
-  color:white;
-  cursor:pointer;
-}
-
-/* MAIN */
-#mainSite { display:none; }
-
+/* HEADER */
 header {
   padding:80px 20px;
   color:white;
   background:linear-gradient(135deg,#ff4e8a,#ff9a9e);
 }
 
-/* GLASS CARD */
+/* CARD */
 .card {
   backdrop-filter: blur(10px);
-  background: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.7);
   margin:20px auto;
   padding:20px;
   max-width:400px;
   border-radius:20px;
   box-shadow:0 8px 25px rgba(0,0,0,0.1);
-  position:relative;
 }
 
 /* SECTION */
@@ -79,6 +43,16 @@ button {
   background:#ff4e8a;
   color:white;
   cursor:pointer;
+  margin:5px;
+}
+
+/* EVENT BOX */
+.event-box {
+  background:white;
+  padding:15px;
+  margin:10px;
+  border-radius:15px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
 
 /* MUSIC BUTTON */
@@ -88,23 +62,22 @@ button {
   bottom: 15px;
   padding: 12px;
   border-radius: 50%;
-  font-size: 18px;
   background: #ff4e8a;
   color: white;
 }
 
-/* GALLERY */
-.gallery {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:15px;
+/* SECRET */
+#secretScreen {
+  height: 100vh;
+  background:black;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 }
-.gallery img {
-  width:100%;
-  border-radius:15px;
-  transition:0.3s;
-}
-.gallery img:hover { transform:scale(1.05); }
+
+#mainSite { display:none; }
 
 footer {
   background:#222;
@@ -116,7 +89,6 @@ footer {
 
 <body>
 
-<!-- AUDIO -->
 <audio id="bgMusic" loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
@@ -124,8 +96,8 @@ footer {
 <!-- SECRET -->
 <div id="secretScreen">
   <h2>🔐 Private Invite</h2>
-  <p>Something big is coming 😏</p>
-  <button id="secretBtn">Enter</button>
+  <p>Something special is waiting for you 💍</p>
+  <button onclick="enterSite()">Enter</button>
 </div>
 
 <!-- MAIN -->
@@ -144,44 +116,48 @@ footer {
 </div>
 
 <div class="section">
-  <h2>📅 Events</h2>
-  <div class="card">Haldi – 04 April</div>
-  <div class="card">Wedding – Himayatnagar</div>
-  <div class="card">Reception – Hyderabad</div>
+  <h2>📅 Wedding Events</h2>
+
+  <div class="event-box">
+    <h3>🌼 Haldi Ceremony</h3>
+    <p>Date: 04 April</p>
+    <p>Location: Himayatnagar</p>
+  </div>
+
+  <div class="event-box">
+    <h3>💍 Wedding</h3>
+    <p>Date: 05 April</p>
+    <p>Location: Himayatnagar</p>
+  </div>
+
+  <div class="event-box">
+    <h3>🎉 Reception</h3>
+    <p>Date: 06 April</p>
+    <p>Location: Hyderabad</p>
+  </div>
+
 </div>
 
 <div class="section">
-  <h2>😂 Are You Attending My Wedding?</h2>
+  <h2>💌 Will you join us?</h2>
   <div class="card">
-    <button id="yesBtn" onclick="celebrate()">Yes 😎</button>
-    <button onclick="alert('Oh no! 😢 You’ll be missed at our wedding… but don’t worry, we’ll save some मिठाई for you! 🍰😜 😔')">No 😜</button>
+    <button onclick="yesMsg()">Yes 💖</button>
+    <button onclick="noMsg()">No 😢</button>
   </div>
-</div>
-
-<div class="section gallery">
-  <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622">
-  <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3">
-  <img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329">
-  <img src="https://images.unsplash.com/photo-1520857014576-2c4f4c972b57">
 </div>
 
 <footer>Made with ❤️ by Sameer</footer>
 
 </div>
 
-<!-- MUSIC BUTTON -->
-<button id="musicBtn">🔇</button>
+<button id="musicBtn" onclick="toggleMusic()">🎵</button>
 
 <script>
-// ENTER + MUSIC
-document.getElementById("secretBtn").onclick = () => {
+function enterSite(){
   document.getElementById("secretScreen").style.display="none";
   document.getElementById("mainSite").style.display="block";
-
-  let music = document.getElementById("bgMusic");
-  music.play();
-  document.getElementById("musicBtn").innerHTML = "🔊";
-};
+  document.getElementById("bgMusic").play();
+}
 
 // COUNTDOWN
 const d=new Date("April 5, 2026").getTime();
@@ -192,42 +168,28 @@ setInterval(()=>{
  document.getElementById("countdown").innerHTML=days+" days left 💍";
 },1000);
 
-// HEARTS
-setInterval(()=>{
- let h=document.createElement("div");
- h.className="heart";
- h.innerHTML="💖";
- h.style.left=Math.random()*100+"%";
- document.body.appendChild(h);
- setTimeout(()=>h.remove(),5000);
-},500);
+// YES MESSAGE
+function yesMsg(){
+  alert("💖 Thank you so much! We can't wait to celebrate this special day with you! 🎉💍");
+}
 
-// YES BUTTON MOVE
-const btn=document.getElementById("yesBtn");
-btn.addEventListener("mouseover",()=>{
- btn.style.position="absolute";
- btn.style.left=Math.random()*300+"px";
- btn.style.top=Math.random()*150+"px";
-});
-
-// CELEBRATE
-function celebrate(){
- alert("🎉 Welcome to the wedding!");
+// NO MESSAGE
+function noMsg(){
+  alert("😢 Oh no! You’ll be truly missed on our big day… but don’t worry, we’ll save मिठाई for you! 🍰💖");
 }
 
 // MUSIC CONTROL
-const music = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicBtn");
-
-musicBtn.onclick = () => {
-  if (music.paused) {
-    music.play();
-    musicBtn.innerHTML = "🔊";
-  } else {
-    music.pause();
-    musicBtn.innerHTML = "🔇";
-  }
-};
+function toggleMusic(){
+ let music=document.getElementById("bgMusic");
+ let btn=document.getElementById("musicBtn");
+ if(music.paused){
+   music.play();
+   btn.innerHTML="🔊";
+ } else {
+   music.pause();
+   btn.innerHTML="🔇";
+ }
+}
 </script>
 
 </body>
