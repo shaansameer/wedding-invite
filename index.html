@@ -270,7 +270,7 @@ footer {
   <h2>💌 Will you join us?</h2>
   <div class="card">
 
-    <!-- ✅ NAME INPUT ADDED -->
+    <!-- NAME INPUT -->
     <input type="text" id="guestName" placeholder="Enter your name 💖" style="padding:10px;border-radius:10px;border:none;margin-bottom:10px;">
 
     <br>
@@ -314,7 +314,7 @@ setInterval(()=>{
  setTimeout(()=>f.remove(),6000);
 },300);
 
-/* ✅ GOOGLE SHEET FUNCTION */
+/* GOOGLE SHEET FUNCTION */
 function sendData(response){
   let name = document.getElementById("guestName").value;
 
@@ -323,9 +323,13 @@ function sendData(response){
     return;
   }
 
-  fetch("https://script.google.com/macros/s/AKfycbybpaLR6O_4313dRJV9JUHV0qqgysZWJ-Zthzi3dmWRxpn-Qz_pHuNoMsJ5lp3m9KiTtA/exec?name="+name+"&response="+response)
-  .then(()=>console.log("Data Sent"))
-  .catch(()=>console.log("Error"));
+  // ✅ Apna deployed Google Script URL
+  const sheetURL = "https://script.google.com/macros/s/AKfycbwcVd7r7GNdlfStxHoQNSW8vnD8GYOjFAfdOwZ8LURCfnp6Q4tCQVJCY-_yUFcc8ikMRQ/exec";
+
+  fetch(`${sheetURL}?name=${encodeURIComponent(name)}&response=${encodeURIComponent(response)}`)
+    .then(res => res.text())
+    .then(data => console.log("Server Response:", data))
+    .catch(err => console.log("Error:", err));
 }
 
 /* POPUP FUNCTIONS */
