@@ -14,7 +14,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ================= FIRST PAGE ================= */
+/* FIRST PAGE */
 #secretScreen {
   height: 100vh;
   position: relative;
@@ -23,111 +23,16 @@ body {
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  overflow:hidden;
   background: radial-gradient(circle at bottom, #001f3f, #000814);
 }
 
-#secretScreen::before {
-  content:"";
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  box-shadow:
-    10vw 20vh white, 20vw 80vh white, 30vw 40vh white,
-    40vw 10vh white, 50vw 70vh white, 60vw 30vh white,
-    70vw 90vh white, 80vw 50vh white, 90vw 60vh white;
-  animation: moveStars 20s linear infinite;
-}
-
-#secretScreen::after {
-  content:"";
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  opacity:0.5;
-  box-shadow:
-    15vw 25vh white, 25vw 75vh white, 35vw 45vh white,
-    45vw 15vh white, 55vw 65vh white, 65vw 35vh white,
-    75vw 85vh white, 85vw 55vh white, 95vw 65vh white;
-  animation: moveStars 40s linear infinite;
-}
-
-@keyframes moveStars {
-  from { transform: translateY(0); }
-  to { transform: translateY(-100vh); }
-}
-
-/* TEXT */
-.inviteText {
-  font-size: 36px;
-  animation: glow 2s infinite alternate;
-}
-.familyText {
-  font-size: 20px;
-  margin-top:10px;
-  animation: floatText 3s ease-in-out infinite;
-}
-
-@keyframes glow {
-  from { text-shadow:0 0 10px #00eaff; }
-  to { text-shadow:0 0 25px #00eaff; }
-}
-@keyframes floatText {
-  50% { transform: translateY(-8px); }
-}
-
-/* ================= MAIN ================= */
+/* MAIN */
 #mainSite { display:none; }
 
 header {
   padding:80px 20px;
   color:white;
-  position: relative;
-  overflow:hidden;
   background: radial-gradient(circle at bottom, #001f3f, #000814);
-}
-
-/* FIREFLY */
-.firefly {
-  position:absolute;
-  width:5px;
-  height:5px;
-  background:#00eaff;
-  border-radius:50%;
-  box-shadow:0 0 10px #00eaff;
-  animation: floatUp linear infinite;
-}
-
-@keyframes floatUp {
-  from {transform: translateY(100vh);}
-  to {transform: translateY(-10vh);}
-}
-
-/* NAMES */
-.names {
-  font-size:38px;
-  position: relative;
-  z-index:2;
-  animation: nameEntry 2s ease forwards, glowPulse 3s infinite;
-}
-
-@keyframes nameEntry {
-  0% {opacity:0; transform: translateY(40px) scale(0.9);}
-  100% {opacity:1; transform: translateY(0) scale(1);}
-}
-@keyframes glowPulse {
-  50% { text-shadow:0 0 25px #00eaff; }
-}
-
-/* HEART */
-.heart {
-  display:inline-block;
-  animation: beat 1s infinite;
-}
-@keyframes beat {
-  50% {transform: scale(1.3);}
 }
 
 /* CARD */
@@ -173,7 +78,6 @@ button {
   align-items:center;
   visibility:hidden;
   opacity:0;
-  transition:0.3s;
 }
 
 .popup.active {
@@ -185,13 +89,6 @@ button {
   background:white;
   padding:25px;
   border-radius:20px;
-  max-width:300px;
-  animation: zoomIn 0.4s ease;
-}
-
-@keyframes zoomIn {
-  from {transform:scale(0.7); opacity:0;}
-  to {transform:scale(1); opacity:1;}
 }
 
 /* MUSIC */
@@ -204,12 +101,6 @@ button {
   background: #ff4e8a;
   color: white;
 }
-
-footer {
-  background:#222;
-  color:white;
-  padding:20px;
-}
 </style>
 </head>
 
@@ -221,9 +112,8 @@ footer {
 
 <!-- FIRST PAGE -->
 <div id="secretScreen">
-  <h2 class="inviteText">💌 You're Invited</h2>
-  <h3 class="familyText">From Khan Family</h3>
-  <p>A magical night awaits you 💍</p>
+  <h2>💌 You're Invited</h2>
+  <h3>From Khan Family</h3>
   <button onclick="enterSite()">Enter</button>
 </div>
 
@@ -231,56 +121,20 @@ footer {
 <div id="mainSite">
 
 <header>
-  <div class="names">
-    Sameer <span class="heart">❤️</span> Taheniya
-  </div>
+  <h1>Sameer ❤️ Taheniya</h1>
   <h2 id="countdown"></h2>
 </header>
 
-<div class="section">
-  <div class="card">
-    <h2>💑 Our Love Story</h2>
-    <p>Two hearts… one journey… forever begins ❤️</p>
-  </div>
-</div>
-
-<div class="section">
-  <h2>📅 Wedding Events</h2>
-
-  <div class="event-box haldi">
-    <h3>🌼 Haldi Ceremony</h3>
-    <p>Date: 04 April</p>
-    <p>Location: Himayatnagar</p>
-  </div>
-
-  <div class="event-box wedding">
-    <h3>💍 Wedding</h3>
-    <p>Date: 05 April</p>
-    <p>Location: Himayatnagar</p>
-  </div>
-
-  <div class="event-box reception">
-    <h3>🎉 Reception</h3>
-    <p>Date: 06 April</p>
-    <p>Location: Mulawa</p>
-  </div>
-</div>
-
-<div class="section">
+<div class="card">
   <h2>💌 Will you join us?</h2>
-  <div class="card">
 
-    <!-- ✅ NAME INPUT ADDED -->
-    <input type="text" id="guestName" placeholder="Enter your name 💖" style="padding:10px;border-radius:10px;border:none;margin-bottom:10px;">
+  <!-- NAME INPUT -->
+  <input type="text" id="guestName" placeholder="Enter your name 💖" style="padding:10px;border-radius:10px;border:none;margin-bottom:10px;">
+  <br>
 
-    <br>
-
-    <button onclick="showYes()">Yes 💖</button>
-    <button onclick="showNo()">No 😢</button>
-  </div>
+  <button onclick="showYes()">Yes 💖</button>
+  <button onclick="showNo()">No 😢</button>
 </div>
-
-<footer>Made with ❤️ by Sameer</footer>
 
 </div>
 
@@ -295,9 +149,9 @@ footer {
 function enterSite(){
   document.getElementById("secretScreen").style.display="none";
   document.getElementById("mainSite").style.display="block";
-  document.getElementById("bgMusic").play();
 }
 
+/* COUNTDOWN */
 const d=new Date("April 5, 2026").getTime();
 setInterval(()=>{
  let n=new Date().getTime();
@@ -305,16 +159,7 @@ setInterval(()=>{
  document.getElementById("countdown").innerHTML=days+" days left 💍";
 },1000);
 
-setInterval(()=>{
- let f=document.createElement("div");
- f.className="firefly";
- f.style.left=Math.random()*100+"vw";
- f.style.animationDuration=(Math.random()*5+3)+"s";
- document.querySelector("header").appendChild(f);
- setTimeout(()=>f.remove(),6000);
-},300);
-
-/* ✅ GOOGLE SHEET FUNCTION */
+/* 🔥 GOOGLE SHEET FUNCTION */
 function sendData(response){
   let name = document.getElementById("guestName").value;
 
@@ -323,12 +168,16 @@ function sendData(response){
     return;
   }
 
-  fetch("https://script.google.com/macros/s/AKfycbybpaLR6O_4313dRJV9JUHV0qqgysZWJ-Zthzi3dmWRxpn-Qz_pHuNoMsJ5lp3m9KiTtA/exec?name="+name+"&response="+response)
-  .then(()=>console.log("Data Sent"))
-  .catch(()=>console.log("Error"));
+  fetch("https://script.google.com/macros/s/AKfycbybpaLR6O_4313dRJV9JUHV0qqgysZWJ-Zthzi3dmWRxpn-Qz_pHuNoMsJ5lp3m9KiTtA/exec", {
+    method: "POST",
+    body: new URLSearchParams({
+      name: name,
+      response: response
+    })
+  });
 }
 
-/* POPUP FUNCTIONS */
+/* POPUP */
 function showYes(){
   sendData("YES");
 
