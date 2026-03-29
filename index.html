@@ -170,7 +170,7 @@ footer {
 </div>
 
 <!-- MUSIC BUTTON -->
-<button id="musicBtn">🎵</button>
+<button id="musicBtn">🔇</button>
 
 <script>
 // ENTER + MUSIC
@@ -180,6 +180,7 @@ document.getElementById("secretBtn").onclick = () => {
 
   let music = document.getElementById("bgMusic");
   music.play();
+  document.getElementById("musicBtn").innerHTML = "🔊";
 };
 
 // COUNTDOWN
@@ -201,7 +202,7 @@ setInterval(()=>{
  setTimeout(()=>h.remove(),5000);
 },500);
 
-// YES MOVE
+// YES BUTTON MOVE
 const btn=document.getElementById("yesBtn");
 btn.addEventListener("mouseover",()=>{
  btn.style.position="absolute";
