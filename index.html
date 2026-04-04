@@ -12,45 +12,198 @@ body {
   font-family: 'Segoe UI', sans-serif;
   text-align: center;
   background: linear-gradient(135deg,#ffe6f0,#fff0f5);
+  overflow-x: hidden;
 }
 
-/* FIRST SCREEN */
+/* ================= FIRST PAGE ================= */
 #secretScreen {
   height: 100vh;
+  position: relative;
+  color:white;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  background:#000814;
-  color:white;
+  overflow:hidden;
+  background: radial-gradient(circle at bottom, #001f3f, #000814);
 }
 
+#secretScreen::before {
+  content:"";
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  box-shadow:
+    10vw 20vh white, 20vw 80vh white, 30vw 40vh white,
+    40vw 10vh white, 50vw 70vh white, 60vw 30vh white,
+    70vw 90vh white, 80vw 50vh white, 90vw 60vh white;
+  animation: moveStars 20s linear infinite;
+}
+
+#secretScreen::after {
+  content:"";
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  opacity:0.5;
+  box-shadow:
+    15vw 25vh white, 25vw 75vh white, 35vw 45vh white,
+    45vw 15vh white, 55vw 65vh white, 65vw 35vh white,
+    75vw 85vh white, 85vw 55vh white, 95vw 65vh white;
+  animation: moveStars 40s linear infinite;
+}
+
+@keyframes moveStars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100vh); }
+}
+
+/* TEXT */
+.inviteText {
+  font-size: 36px;
+  animation: glow 2s infinite alternate;
+}
+.familyText {
+  font-size: 20px;
+  margin-top:10px;
+  animation: floatText 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+  from { text-shadow:0 0 10px #00eaff; }
+  to { text-shadow:0 0 25px #00eaff; }
+}
+@keyframes floatText {
+  50% { transform: translateY(-8px); }
+}
+
+/* ================= MAIN ================= */
 #mainSite { display:none; }
 
 header {
   padding:80px 20px;
   color:white;
-  background:#000814;
+  position: relative;
+  overflow:hidden;
+  background: radial-gradient(circle at bottom, #001f3f, #000814);
 }
 
+/* FIREFLY */
+.firefly {
+  position:absolute;
+  width:5px;
+  height:5px;
+  background:#00eaff;
+  border-radius:50%;
+  box-shadow:0 0 10px #00eaff;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  from {transform: translateY(100vh);}
+  to {transform: translateY(-10vh);}
+}
+
+/* NAMES */
 .names {
-  font-size:35px;
+  font-size:38px;
+  position: relative;
+  z-index:2;
+  animation: nameEntry 2s ease forwards, glowPulse 3s infinite;
 }
 
+@keyframes nameEntry {
+  0% {opacity:0; transform: translateY(40px) scale(0.9);}
+  100% {opacity:1; transform: translateY(0) scale(1);}
+}
+@keyframes glowPulse {
+  50% { text-shadow:0 0 25px #00eaff; }
+}
+
+/* HEART */
+.heart {
+  display:inline-block;
+  animation: beat 1s infinite;
+}
+@keyframes beat {
+  50% {transform: scale(1.3);}
+}
+
+/* CARD */
 .card {
-  background:white;
-  margin:20px;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.7);
+  margin:20px auto;
   padding:20px;
+  max-width:400px;
+  border-radius:20px;
+}
+
+/* EVENTS */
+.event-box {
+  padding:15px;
+  margin:10px;
   border-radius:15px;
 }
+.haldi { background:#fff176; }
+.wedding { background:#ff4e8a; color:white; }
+.reception { background:#5f2c82; color:white; }
 
+/* BUTTON */
 button {
-  padding:10px 15px;
+  padding:12px 20px;
   border:none;
-  border-radius:20px;
+  border-radius:25px;
   background:#ff4e8a;
   color:white;
   cursor:pointer;
+  margin:5px;
+}
+
+/* POPUP */
+.popup {
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.5);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  visibility:hidden;
+  opacity:0;
+  transition:0.3s;
+}
+
+.popup.active {
+  visibility:visible;
+  opacity:1;
+}
+
+.popup-card {
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  max-width:300px;
+  animation: zoomIn 0.4s ease;
+}
+
+@keyframes zoomIn {
+  from {transform:scale(0.7); opacity:0;}
+  to {transform:scale(1); opacity:1;}
+}
+
+/* MUSIC */
+#musicBtn {
+  position: fixed;
+  left: 15px;
+  bottom: 15px;
+  padding: 12px;
+  border-radius: 50%;
+  background: #ff4e8a;
+  color: white;
 }
 
 footer {
@@ -69,8 +222,9 @@ footer {
 
 <!-- FIRST PAGE -->
 <div id="secretScreen">
-  <h2>💌 You're Invited</h2>
-  <h3>From Khan Family</h3>
+  <h2 class="inviteText">💌 You're Invited</h2>
+  <h3 class="familyText">From Khan Family</h3>
+  <p>A magical day awaits you 💍</p>
   <button onclick="enterSite()">Enter</button>
 </div>
 
@@ -79,19 +233,60 @@ footer {
 
 <header>
   <div class="names">
-    Sameer ❤️ Taheniya
+    Sameer <span class="heart">❤️</span> Taheniya
   </div>
   <h2 id="countdown"></h2>
 </header>
 
-<div class="card">
-  <h2>💍 Wedding</h2>
-  <p>05 April 2026 | 5:15 PM</p>
+<div class="section">
+  <div class="card">
+    <h2>💑 Our Love Story</h2>
+    <p>Two hearts… one journey… forever begins ❤️</p>
+  </div>
+</div>
+
+<div class="section">
+  <h2>📅 Wedding Events</h2>
+
+  <div class="event-box haldi">
+    <h3>🌼 Haldi Ceremony</h3>
+    <p>Date: 04 April</p>
+    <p>Location: Mulawa</p>
+  </div>
+
+  <div class="event-box wedding">
+    <h3>💍 Wedding</h3>
+    <p>Date: 05 April</p>
+    <p>Location: Himayatnagar</p>
+  </div>
+
+  <div class="event-box reception">
+    <h3>🎉 Reception</h3>
+    <p>Date: 06 April</p>
+    <p>Location: Mulawa</p>
+  </div>
+</div>
+
+<div class="section">
+  <h2>💌 Are you attending?</h2>
+  <div class="card">
+    <input type="text" id="guestName" placeholder="Enter your name " style="padding:10px;border-radius:10px;border:none;margin-bottom:10px;">
+    <br>
+    <button onclick="showYes()">Yes 💖</button>
+    <button onclick="showNo()">No 😢</button>
+  </div>
 </div>
 
 <footer>Made with ❤️ by Sameer</footer>
 
 </div>
+
+<!-- POPUP -->
+<div id="popup" class="popup">
+  <div class="popup-card" id="popupContent"></div>
+</div>
+
+<button id="musicBtn" onclick="toggleMusic()">🎵</button>
 
 <script>
 function enterSite(){
@@ -100,7 +295,7 @@ function enterSite(){
   document.getElementById("bgMusic").play();
 }
 
-/* ✅ FINAL WORKING COUNTDOWN */
+/* ✅ FIXED COUNTDOWN */
 function updateCountdown() {
   const now = new Date();
   const weddingDate = new Date("April 5, 2026 17:15:00");
@@ -113,6 +308,73 @@ function updateCountdown() {
     return;
   }
 
+  const oneDay = 24 * 60 * 60 * 1000;
+
+  if (diff > oneDay) {
+    el.innerHTML = "1 Day Left 💍";
+  } else {
+    const h = Math.floor(diff / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+    el.innerHTML = `⏳ ${h}h ${m}m ${s}s left`;
+  }
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* FIREFLY */
+setInterval(()=>{
+ let f=document.createElement("div");
+ f.className="firefly";
+ f.style.left=Math.random()*100+"vw";
+ f.style.animationDuration=(Math.random()*5+3)+"s";
+ document.querySelector("header").appendChild(f);
+ setTimeout(()=>f.remove(),6000);
+},300);
+
+/* GOOGLE SHEET */
+function sendData(response){
+  let name = document.getElementById("guestName").value;
+  if(name==""){ alert("Please enter your name 💖"); return; }
+
+  const sheetURL = "https://script.google.com/macros/s/AKfycbwcVd7r7GNdlfStxHoQNSW8vnD8GYOjFAfdOwZ8LURCfnp6Q4tCQVJCY-_yUFcc8ikMRQ/exec";
+
+  fetch(`${sheetURL}?name=${encodeURIComponent(name)}&response=${encodeURIComponent(response)}`);
+}
+
+function showYes(){
+  sendData("YES");
+  document.getElementById("popupContent").innerHTML = `
+    <h2>💖 Thank You!</h2>
+    <button onclick="closePopup()">Close</button>`;
+  document.getElementById("popup").classList.add("active");
+}
+
+function showNo(){
+  sendData("NO");
+  document.getElementById("popupContent").innerHTML = `
+    <h2>😢 We’ll Miss You</h2>
+    <button onclick="closePopup()">Close</button>`;
+  document.getElementById("popup").classList.add("active");
+}
+
+function closePopup(){
+  document.getElementById("popup").classList.remove("active");
+}
+
+function toggleMusic(){
+ let music=document.getElementById("bgMusic");
+ let btn=document.getElementById("musicBtn");
+ if(music.paused){ music.play(); btn.innerHTML="🔊"; }
+ else { music.pause(); btn.innerHTML="🔇"; }
+}
+</script>
+
+</body>
+</html>
+```
   const oneDay = 24 * 60 * 60 * 1000;
 
   if (diff > oneDay) {
