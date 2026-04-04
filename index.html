@@ -279,18 +279,33 @@ footer {
 <button id="musicBtn" onclick="toggleMusic()">🎵</button>
 
 <script>
-function enterSite(){
-  document.getElementById("secretScreen").style.display="none";
-  document.getElementById("mainSite").style.display="block";
-  document.getElementById("bgMusic").play();
+function updateCountdown() {
+  const now = new Date();
+  const weddingDate = new Date("April 5, 2026 17:15:00");
+
+  const diff = weddingDate - now;
+  const el = document.getElementById("countdown");
+
+  if (diff <= 0) {
+    el.innerHTML = "🎉 It's Wedding Time 💍";
+    return;
+  }
+
+  const oneDay = 24 * 60 * 60 * 1000;
+
+  if (diff > oneDay) {
+    el.innerHTML = "1 Day Left 💍";
+  } else {
+    const h = Math.floor(diff / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+    el.innerHTML = `⏳ ${h}h ${m}m ${s}s`;
+  }
 }
 
-const d=new Date("April 5, 2026").getTime();
-setInterval(()=>{
- let n=new Date().getTime();
- let days=Math.floor((d-n)/(1000*60*60*24));
- document.getElementById("countdown").innerHTML=days+" days left 💍";
-},1000);
+setInterval(updateCountdown, 1000);
+updateCountdown();
 
 setInterval(()=>{
  let f=document.createElement("div");
