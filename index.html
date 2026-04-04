@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,29 +12,127 @@ body {
   font-family: 'Segoe UI', sans-serif;
   text-align: center;
   background: linear-gradient(135deg,#ffe6f0,#fff0f5);
-  overflow-x: hidden;
 }
 
-/* ================= FIRST PAGE ================= */
+/* FIRST SCREEN */
 #secretScreen {
   height: 100vh;
-  position: relative;
-  color:white;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  overflow:hidden;
-  background: radial-gradient(circle at bottom, #001f3f, #000814);
+  background:#000814;
+  color:white;
 }
 
-#secretScreen::before {
-  content:"";
-  position:absolute;
-  width:2px;
-  height:2px;
+#mainSite { display:none; }
+
+header {
+  padding:80px 20px;
+  color:white;
+  background:#000814;
+}
+
+.names {
+  font-size:35px;
+}
+
+.card {
   background:white;
-  box-shadow:
+  margin:20px;
+  padding:20px;
+  border-radius:15px;
+}
+
+button {
+  padding:10px 15px;
+  border:none;
+  border-radius:20px;
+  background:#ff4e8a;
+  color:white;
+  cursor:pointer;
+}
+
+footer {
+  background:#222;
+  color:white;
+  padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- FIRST PAGE -->
+<div id="secretScreen">
+  <h2>💌 You're Invited</h2>
+  <h3>From Khan Family</h3>
+  <button onclick="enterSite()">Enter</button>
+</div>
+
+<!-- MAIN -->
+<div id="mainSite">
+
+<header>
+  <div class="names">
+    Sameer ❤️ Taheniya
+  </div>
+  <h2 id="countdown"></h2>
+</header>
+
+<div class="card">
+  <h2>💍 Wedding</h2>
+  <p>05 April 2026 | 5:15 PM</p>
+</div>
+
+<footer>Made with ❤️ by Sameer</footer>
+
+</div>
+
+<script>
+function enterSite(){
+  document.getElementById("secretScreen").style.display="none";
+  document.getElementById("mainSite").style.display="block";
+  document.getElementById("bgMusic").play();
+}
+
+/* ✅ FINAL WORKING COUNTDOWN */
+function updateCountdown() {
+  const now = new Date();
+  const weddingDate = new Date("April 5, 2026 17:15:00");
+
+  const diff = weddingDate - now;
+  const el = document.getElementById("countdown");
+
+  if (diff <= 0) {
+    el.innerHTML = "🎉 It's Wedding Time 💍";
+    return;
+  }
+
+  const oneDay = 24 * 60 * 60 * 1000;
+
+  if (diff > oneDay) {
+    el.innerHTML = "1 Day Left 💍";
+  } else {
+    const h = Math.floor(diff / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+    el.innerHTML = `⏳ ${h}h ${m}m ${s}s left`;
+  }
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
+```
     10vw 20vh white, 20vw 80vh white, 30vw 40vh white,
     40vw 10vh white, 50vw 70vh white, 60vw 30vh white,
     70vw 90vh white, 80vw 50vh white, 90vw 60vh white;
